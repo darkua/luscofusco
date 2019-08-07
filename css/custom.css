@@ -29,24 +29,13 @@
     display: none;
   }
   
-  /* Values
+
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
-  .values {
+  .header {
     background-image: url('../img/bg_2.jpg');
-    background-size: cover;
-    color: #fff;
+    color: #000;
+    background-size: 0vmax;
     padding-bottom: 5rem;
-  }
-  .value-multiplier {
-    margin-bottom: .5rem;
-    color: #11DFC7;
-  }
-  .value-heading {
-    margin-bottom: .3rem;
-  }
-  .value-description {
-    opacity: .8;
-    font-weight: 300;
   }
   
   /* Help
@@ -65,6 +54,9 @@
   .categories .section-description { 
     margin-bottom: 4rem;
   }
+  
+
+
   
   /* Bigger than 550 */
   @media (min-width: 550px) {
