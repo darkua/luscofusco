@@ -14,13 +14,14 @@
   .section-description {
     margin-bottom: 1.2rem;
   }
-  
+  .section-footing {
+    margin-bottom: 2.2rem;
+  }
   /* header
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
   .section.top {
     background-image: url('../img/bg_2.jpg');
     color: #000;
-    height:"480px"
   }
 
   /* Hero
