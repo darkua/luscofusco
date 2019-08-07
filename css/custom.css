@@ -31,7 +31,7 @@
   
 
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
-  .header {
+  .hhh {
     background-image: url('../img/bg_2.jpg');
     color: #000;
     background-size: 0vmax;
@@ -54,9 +54,6 @@
   .categories .section-description { 
     margin-bottom: 4rem;
   }
-  
-
-
   
   /* Bigger than 550 */
   @media (min-width: 550px) {
