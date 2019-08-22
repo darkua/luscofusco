@@ -186,7 +186,7 @@
     async function run() {
       // load face detection and face landmark models
       await changeFaceDetector(TINY_FACE_DETECTOR)
-      await faceapi.loadFaceLandmarkModel('/')
+      await faceapi.loadFaceLandmarkModel('/weights')
       changeInputSize(224)
 
       // try to access users webcam and stream the images
