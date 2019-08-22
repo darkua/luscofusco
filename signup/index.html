@@ -170,10 +170,9 @@
         const dims = faceapi.matchDimensions(canvas, video, true)
         const resizedResult = faceapi.resizeResults(result, dims)
 
-        if (withBoxes) {
-          faceapi.draw.drawDetections(canvas, resizedResult)
-        }
+        faceapi.draw.drawDetections(canvas, resizedResult)
         faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
+        faceapi.draw.drawFaceExpressions(canvas, resizedResult)
       }
 
       setTimeout(() => onPlay())
