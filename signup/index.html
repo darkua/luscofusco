@@ -160,10 +160,8 @@
 
 
       const options = getFaceDetectorOptions()
-      console.log("options",options)
       const ts = Date.now()
-
-      const result = await faceapi.detectSingleFace(video, options).withFaceLandmarks()
+      const result = await faceapi.detectSingleFace(video, options).withFaceLandmarks().withFaceExpressions()
 
       updateTimeStats(Date.now() - ts)
 
@@ -185,7 +183,9 @@
       // load face detection and face landmark models
       await changeFaceDetector(TINY_FACE_DETECTOR)
       await faceapi.loadFaceLandmarkModel('/weights')
-      changeInputSize(224)
+      await faceapi.loadFaceExpressionModel('/weights')
+      
+      changeInputSize(160)
 
       // try to access users webcam and stream the images
       // to the video element
@@ -193,23 +193,17 @@
       const video = $('#inputVideo').get(0)
       
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        console.log("mediaDevice")
-        navigator.mediaDevices.getUserMedia({
-                video: true
-            }).then(function (stream) {
-
-                video.srcObject = stream;
-                video.play();
-            });
-    } else {
-        console.log("navigator")
-        navigator.getUserMedia(
-        { video: {} },
-        stream => video.srcObject = stream,
-        err => console.error(err)
+        navigator.mediaDevices.getUserMedia({video: true})
+        .then(function (stream) {
+          video.srcObject = stream;
+          video.play();
+        }).catch(console.error);
+      } else {
+        navigator.getUserMedia({ video: {} },
+          stream => video.srcObject = stream,
+          err => console.error(err)
         )
-  }
-
+      }
     }
 
     function updateResults() {}
