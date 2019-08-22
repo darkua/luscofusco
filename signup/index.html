@@ -153,9 +153,9 @@
     }
 
     async function onPlay() {
-      const videoEl = $('#inputVideo').get(0)
+      const video = $('#inputVideo').get(0)
 
-      if(videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded())
+      if(video.paused || video.ended || !isFaceDetectionModelLoaded())
         return setTimeout(() => onPlay())
 
 
@@ -163,13 +163,13 @@
       console.log("options",options)
       const ts = Date.now()
 
-      const result = await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks()
+      const result = await faceapi.detectSingleFace(video, options).withFaceLandmarks()
 
       updateTimeStats(Date.now() - ts)
 
       if (result) {
         const canvas = $('#overlay').get(0)
-        const dims = faceapi.matchDimensions(canvas, videoEl, true)
+        const dims = faceapi.matchDimensions(canvas, video, true)
         const resizedResult = faceapi.resizeResults(result, dims)
 
         if (withBoxes) {
@@ -189,9 +189,27 @@
 
       // try to access users webcam and stream the images
       // to the video element
-      const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
-      const videoEl = $('#inputVideo').get(0)
-      videoEl.srcObject = stream
+      
+      const video = $('#inputVideo').get(0)
+      
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        console.log("mediaDevice")
+        navigator.mediaDevices.getUserMedia({
+                video: true
+            }).then(function (stream) {
+
+                video.srcObject = stream;
+                video.play();
+            });
+    } else {
+        console.log("navigator")
+        navigator.getUserMedia(
+        { video: {} },
+        stream => video.srcObject = stream,
+        err => console.error(err)
+        )
+  }
+
     }
 
     function updateResults() {}
