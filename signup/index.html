@@ -198,7 +198,7 @@
           video.play();
         }).catch(console.error);
       } else {
-        navigator.getUserMedia({ video: {} },
+        navigator.getUserMedia({ video: true },
           stream => video.srcObject = stream,
           err => console.error(err)
         )
