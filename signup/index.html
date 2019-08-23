@@ -40,7 +40,8 @@
 
     function stopDrawing(){
       const video = $('#inputVideo').get(0)
-      (video.paused)?video.play():video.pause()
+      console.log("video",video)
+      video.pause()
     }
 
     async function onPlay() {
