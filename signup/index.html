@@ -221,7 +221,6 @@
 
       navigator.mediaDevices.getUserMedia({ audio: true, video: true })
       .then(function(stream) {
-        var video = document.querySelector('video');
         const video = $('#inputVideo').get(0)
         // Older browsers may not have srcObject
         if ("srcObject" in video) {
