@@ -42,7 +42,6 @@
       </div> -->
       <!-- check boxes
 
-      <!-- fps_meter -->
       <div id="fps_meter" class="row side-by-side">
         <div>
           <label for="time">Time:</label>
@@ -50,7 +49,7 @@
           <label for="fps">Estimated Fps:</label>
           <input disabled value="-" id="fps" type="text" class="bold">
         </div>
-      </div>
+      </div> -->
       <!-- fps_meter -->
 
     </div>
@@ -116,7 +115,7 @@
     <!-- tiny_face_detector_controls -->
 
     <!-- mtcnn_controls -->
-    <span id="mtcnn_controls">
+    <!-- <span id="mtcnn_controls">
       <div class="row side-by-side">
         <div class="row">
           <label for="minFaceSize">Minimum Face Size:</label>
@@ -135,7 +134,7 @@
           <i class="material-icons left">+</i>
         </button>
       </div>
-    </span>
+    </span> -->
     <!-- mtcnn_controls -->
 
   </body>
@@ -144,15 +143,15 @@
     let forwardTimes = []
     let withBoxes = true
 
-    function onChangeHideBoundingBoxes(e) {
-      withBoxes = !$(e.target).prop('checked')
-    }
+    // function onChangeHideBoundingBoxes(e) {
+    //   withBoxes = !$(e.target).prop('checked')
+    // }
 
     function updateTimeStats(timeInMs) {
       forwardTimes = [timeInMs].concat(forwardTimes).slice(0, 30)
       const avgTimeInMs = forwardTimes.reduce((total, t) => total + t) / forwardTimes.length
-      $('#time').val(`${Math.round(avgTimeInMs)} ms`)
-      $('#fps').val(`${faceapi.round(1000 / avgTimeInMs)}`)
+      console.log(`time: ${Math.round(avgTimeInMs)} ms`)
+      console.log(`fps: ${faceapi.round(1000 / avgTimeInMs)}`)
     }
 
     async function onPlay() {
@@ -222,7 +221,7 @@
         }
       }
 
-      navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+      navigator.mediaDevices.getUserMedia({video: true })
       .then(function(stream) {
         const video = $('#inputVideo').get(0)
         // Older browsers may not have srcObject
