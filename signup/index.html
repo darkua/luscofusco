@@ -21,9 +21,10 @@
     </div>
     <div id="video" style="position: relative" class="margin">
       <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline ></video>
-      <canvas id="overlay" />
-      <i class="material-icons" style="font-size: 42px" onclick="stopDrawing()">add</i>
+      <canvas id="overlay" />   
     </div>
+    <i class="material-icons" style="font-size: 42px" onclick="stopDrawing()">add</i>
+  </div>
   </body>
 
   <script>
@@ -54,8 +55,8 @@
       const result = await faceapi.detectAllFaces(video, options).withFaceLandmarks().withFaceExpressions()
       
       updateTimeStats(Date.now() - ts)
-      console.log("result",result)
-      if (result) {
+      console.log("result",result.length)
+      if (result.length) {
         const canvas = $('#overlay').get(0)
         const dims = faceapi.matchDimensions(canvas, video, true)
         const resizedResult = faceapi.resizeResults(result, dims)
