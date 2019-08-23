@@ -233,9 +233,11 @@
         }
       })
       .catch(function(err) {
+        video.innerHTML="YOUR BROWSER SUCKS! DOWNLOAD FIREFOX BETA... "+ err.message
         console.log(err.name + ": " + err.message);
       });
 
+      $("#progress").css("display:block")
 
       // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       //   navigator.mediaDevices.getUserMedia({video: true})
