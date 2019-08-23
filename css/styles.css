@@ -5,6 +5,7 @@
   margin-top: 20px;
   padding-left: 280px;
   display: inline-flex !important;
+  background-color: black
 }
 
 @media only screen and (max-width : 992px) {
@@ -73,4 +74,5 @@
 
 #facesContainer canvas {
   margin: 10px;
+  background-color: black
 }
