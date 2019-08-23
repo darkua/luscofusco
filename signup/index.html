@@ -17,8 +17,8 @@
     <div class="progress" id="loader">
       <div class="indeterminate"></div>
     </div>
-    <div style="position: relative" class="margin">
-      <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline></video>
+    <div id="video" style="position: relative" class="margin">
+      <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline ></video>
       <canvas id="overlay" />
     </div>
 
@@ -233,9 +233,13 @@
         }
       })
       .catch(function(err) {
-        video.innerHTML="YOUR BROWSER SUCKS! DOWNLOAD FIREFOX BETA... "+ err.message
+        alert("WTF!!!!",err.message)
         console.log(err.name + ": " + err.message);
       });
+
+
+      
+
 
       // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       //   navigator.mediaDevices.getUserMedia({video: true})
