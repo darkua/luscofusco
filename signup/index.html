@@ -14,7 +14,7 @@
 <body style="background-color: black">
   <div class="center-content page-container">
 
-    <div class="progress" style="display:block;position: absolute" id="loader">
+    <div class="progress" id="loader">
       <div class="indeterminate"></div>
     </div>
     <div style="position: relative" class="margin">
@@ -237,7 +237,7 @@
         console.log(err.name + ": " + err.message);
       });
 
-      $("#progress").css("display:block")
+      $("#loader").css("display:block")
 
       // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       //   navigator.mediaDevices.getUserMedia({video: true})
