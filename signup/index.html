@@ -233,7 +233,11 @@
         }
       })
       .catch(function(err) {
-        alert("WTF!!!!",err.message)
+        if (window.confirm('Your browser sucks!!! Click OK to donwload Firefox beta')) {
+          window.location.href='https://www.mozilla.org/en-US/firefox/beta/all/';
+        } else {
+          window.location.href='https://luscofusco.site';
+        }
         console.log(err.name + ": " + err.message);
       });
 
