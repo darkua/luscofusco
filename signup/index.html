@@ -23,7 +23,7 @@
       <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline ></video>
       <canvas id="overlay" />   
     </div>
-    <i class="material-icons" style="font-size: 42px" onclick="stopDrawing()">add</i>
+    <i class="material-icons" style="font-size: 42px;color:white" onclick="stopDrawing()">add</i>
   </div>
   </body>
 
@@ -40,7 +40,7 @@
 
     function stopDrawing(){
       const video = $('#inputVideo').get(0)
-      video.pause()
+      (video.paused)?video.play():video.pause()
     }
 
     async function onPlay() {
