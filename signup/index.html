@@ -23,7 +23,7 @@
       <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline ></video>
       <canvas id="overlay" />   
     </div>
-    <i class="material-icons" style="font-size: 42px;color:white" onclick="stopDrawing()">add</i>
+    <i class="material-icons" style="font-size: 42px;color:white" onclick="takePicture()">add</i>
   </div>
   </body>
 
@@ -38,10 +38,9 @@
       console.log(`fps: ${faceapi.round(1000 / avgTimeInMs)}`)
     }
 
-    function stopDrawing(){
+    function takePicture(){
       const video = $('#inputVideo').get(0)
-      console.log("video",video)
-      video.pause()
+      video.paused?video.play():video.pause()
     }
 
     async function onPlay() {
