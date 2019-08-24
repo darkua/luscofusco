@@ -19,9 +19,9 @@
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+  <link rel="stylesheet" href="/css/custom.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -43,10 +43,8 @@
   <div class="section top">
     <div class="container">
       <div id="video" style="position: relative" class="margin">
-        <div class="video-container">
-          <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline ></video>
-          <canvas id="overlay" />   
-        </div>
+         <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline ></video>
+        <canvas id="overlay" />
       </div>
       <i class="material-icons" style="font-size: 42px;color:white" onclick="takePicture()">add</i>
       
