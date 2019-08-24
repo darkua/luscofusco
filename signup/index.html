@@ -13,7 +13,6 @@
 </head>
 <body style="background-color: black">
   <div class="center-content page-container">
-
     <div class="progress" id="loader">
       <div class="indeterminate"></div>
     </div>
@@ -21,131 +20,11 @@
       <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline ></video>
       <canvas id="overlay" />
     </div>
-
-    <div class="row side-by-side">
-
-      <!-- face_detector_selection_control -->
-      <!-- <div id="face_detector_selection_control" class="row input-field" style="margin-right: 20px;">
-        <select id="selectFaceDetector">
-          <option value="ssd_mobilenetv1">SSD Mobilenet V1</option>
-          <option value="tiny_face_detector">Tiny Face Detector</option>
-          <option value="mtcnn">MTCNN</option>
-        </select>
-        <label>Select Face Detector</label>
-      </div> -->
-      <!-- face_detector_selection_control -->
-
-      <!-- check boxes -->
-      <!-- <div class="row" style="width: 220px;">
-        <input type="checkbox" id="hideBoundingBoxesCheckbox" onchange="onChangeHideBoundingBoxes(event)" />
-        <label for="hideBoundingBoxesCheckbox">Hide Bounding Boxes</label>
-      </div> -->
-      <!-- check boxes
-
-      <div id="fps_meter" class="row side-by-side">
-        <div>
-          <label for="time">Time:</label>
-          <input disabled value="-" id="time" type="text" class="bold">
-          <label for="fps">Estimated Fps:</label>
-          <input disabled value="-" id="fps" type="text" class="bold">
-        </div>
-      </div> -->
-      <!-- fps_meter -->
-
-    </div>
-
-
-    <!-- ssd_mobilenetv1_controls -->
-    <!-- <span id="ssd_mobilenetv1_controls">
-      <div class="row side-by-side">
-        <div class="row">
-          <label for="minConfidence">Min Confidence:</label>
-          <input disabled value="0.5" id="minConfidence" type="text" class="bold">
-        </div>
-        <button
-          class="waves-effect waves-light btn"
-          onclick="onDecreaseMinConfidence()"
-        >
-          <i class="material-icons left">-</i>
-        </button>
-        <button
-          class="waves-effect waves-light btn"
-          onclick="onIncreaseMinConfidence()"
-        >
-          <i class="material-icons left">+</i>
-        </button>
-      </div>
-    </span> -->
-    <!-- ssd_mobilenetv1_controls -->
-
-    <!-- tiny_face_detector_controls -->
-    <!-- <span id="tiny_face_detector_controls">
-      <div class="row side-by-side">
-        <div class="row input-field" style="margin-right: 20px;">
-          <select id="inputSize">
-            <option value="" disabled selected>Input Size:</option>
-            <option value="128">128 x 128</option>
-            <option value="160">160 x 160</option>
-            <option value="224">224 x 224</option>
-            <option value="320">320 x 320</option>
-            <option value="416">416 x 416</option>
-            <option value="512">512 x 512</option>
-            <option value="608">608 x 608</option>
-          </select>
-          <label>Input Size</label>
-        </div>
-        <div class="row">
-          <label for="scoreThreshold">Score Threshold:</label>
-          <input disabled value="0.5" id="scoreThreshold" type="text" class="bold">
-        </div>
-        <button
-          class="waves-effect waves-light btn"
-          onclick="onDecreaseScoreThreshold()"
-        >
-          <i class="material-icons left">-</i>
-        </button>
-        <button
-          class="waves-effect waves-light btn"
-          onclick="onIncreaseScoreThreshold()"
-        >
-          <i class="material-icons left">+</i>
-        </button>
-      </div>
-    </span> -->
-    <!-- tiny_face_detector_controls -->
-
-    <!-- mtcnn_controls -->
-    <!-- <span id="mtcnn_controls">
-      <div class="row side-by-side">
-        <div class="row">
-          <label for="minFaceSize">Minimum Face Size:</label>
-          <input disabled value="20" id="minFaceSize" type="text" class="bold">
-        </div>
-        <button
-          class="waves-effect waves-light btn"
-          onclick="onDecreaseMinFaceSize()"
-        >
-          <i class="material-icons left">-</i>
-        </button>
-        <button
-          class="waves-effect waves-light btn"
-          onclick="onIncreaseMinFaceSize()"
-        >
-          <i class="material-icons left">+</i>
-        </button>
-      </div>
-    </span> -->
-    <!-- mtcnn_controls -->
-
   </body>
 
   <script>
     let forwardTimes = []
     let withBoxes = true
-
-    // function onChangeHideBoundingBoxes(e) {
-    //   withBoxes = !$(e.target).prop('checked')
-    // }
 
     function updateTimeStats(timeInMs) {
       forwardTimes = [timeInMs].concat(forwardTimes).slice(0, 30)
@@ -240,25 +119,6 @@
         }
         console.log(err.name + ": " + err.message);
       });
-
-
-      
-
-
-      // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      //   navigator.mediaDevices.getUserMedia({video: true})
-      //   .then(function (stream) {
-      //     video.srcObject = stream;
-      //     video.play();
-      //   }).catch(console.error);
-      // } 
-      
-      // if (navigator.getUserMedia) {
-      //   navigator.getUserMedia({ video: true },
-      //     stream => video.srcObject = stream,
-      //     err => console.error(err)
-      //   )
-      // }
     }
 
     function updateResults() {}
