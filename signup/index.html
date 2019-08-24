@@ -1,9 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>luscofusco - festival chill out after party</title>
+  <meta name="description" content="">
+  <meta name="author" content="it's o.k.">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/custom.css">
+
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  
   <script src="/js/face-api.min.js"></script>
   <script src="/js/faceDetectionControls.js"></script>
   <link rel="stylesheet" href="/css/styles.css">
@@ -11,23 +34,28 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-<body style="background-color: black">
-  <div class="center-content page-container">
+<body>
 
-    <div class="progress" id="loader">
-      <div class="indeterminate"></div>
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="section top">
+    <div class="container">
+      <div id="video" style="position: relative" class="margin">
+        <div class="video-container">
+          <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline ></video>
+          <canvas id="overlay" />   
+        </div>
+      </div>
+      <i class="material-icons" style="font-size: 42px;color:white" onclick="takePicture()">add</i>
+      
     </div>
-    <div id="video" style="position: relative" class="margin">
-      <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline ></video>
-      <canvas id="overlay" />   
-    </div>
-    <i class="material-icons" style="font-size: 42px;color:white" onclick="takePicture()">add</i>
-    <i class="fas fa-squirrel"></i>
   </div>
-  </body>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
 
   <script>
     let forwardTimes = []
