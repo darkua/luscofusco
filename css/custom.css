@@ -19,7 +19,7 @@
   }
   /* header
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
-  .section .hero {
+  .bg {
     background-image: url('../img/bg_3.jpg');
     color: #fff;
     background-position: 50% 50%;
