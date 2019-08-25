@@ -20,12 +20,12 @@
   /* header
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
   .section.top {
-    /* background-image: url('../img/bg_3.jpg'); */
-    /* color: #fff;
+    background-image: url('../img/bg_3.jpg');
+    color: #fff;
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    background-color: #000; */
-    background: inherit
+    background-color: #000;
+    height: 5px;
   }
 
   .logo {
