@@ -38,7 +38,7 @@
     function renderLine(id, text) { 
       if (id>1){
         prev = id-1
-        let elem = document.getElementsByClassName(`line-${prev}`)
+        let elem = document.getElementsByClassName(`line-${prev}`)[0]
         console.log("elem",elem)
         elem.parentNode.removeChild(elem);
       }
@@ -53,8 +53,8 @@
     function updateTimeStats(timeInMs) {
       forwardTimes = [timeInMs].concat(forwardTimes).slice(0, 30)
       const avgTimeInMs = forwardTimes.reduce((total, t) => total + t) / forwardTimes.length
-      console.log(`time: ${Math.round(avgTimeInMs)} ms`)
-      console.log(`fps: ${faceapi.round(1000 / avgTimeInMs)}`)
+      // console.log(`time: ${Math.round(avgTimeInMs)} ms`)
+      // console.log(`fps: ${faceapi.round(1000 / avgTimeInMs)}`)
     }
 
     function takePicture(){
