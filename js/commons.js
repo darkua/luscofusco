@@ -1,168 +1,138 @@
-async function requestExternalImage(imageUrl) {
-  const res = await fetch('fetch_external_image', {
-    method: 'post',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify({ imageUrl })
-  })
-  if (!(res.status < 400)) {
-    console.error(res.status + ' : ' + await res.text())
-    throw new Error('failed to fetch image from url: ' + imageUrl)
-  }
+import Typewriter from 'typewriter-effect/dist/core';
 
-  let blob
-  try {
-    blob = await res.blob()
-    return await faceapi.bufferToImage(blob)
-  } catch (e) {
-    console.error('received blob:', blob)
-    console.error('error:', e)
-    throw new Error('failed to load image from url: ' + imageUrl)
-  }
-}
+let forwardTimes = []
+    let hummanize = false
 
-function renderNavBar(navbarId, exampleUri) {
-  const examples = [
-    {
-      uri: 'face_detection',
-      name: 'Face Detection'
-    },
-    {
-      uri: 'face_landmark_detection',
-      name: 'Face Landmark Detection'
-    },
-    {
-      uri: 'face_expression_recognition',
-      name: 'Face Expression Recognition'
-    },
-    {
-      uri: 'age_and_gender_recognition',
-      name: 'Age and Gender Recognition'
-    },
-    {
-      uri: 'face_recognition',
-      name: 'Face Recognition'
-    },
-    {
-      uri: 'face_extraction',
-      name: 'Face Extraction'
-    },
-    {
-      uri: 'video_face_tracking',
-      name: 'Video Face Tracking'
-    },
-    {
-      uri: 'webcam_face_detection',
-      name: 'Webcam Face Detection'
-    },
-    {
-      uri: 'webcam_face_landmark_detection',
-      name: 'Webcam Face Landmark Detection'
-    },
-    {
-      uri: 'webcam_face_expression_recognition',
-      name: 'Webcam Face Expression Recognition'
-    },
-    {
-      uri: 'webcam_age_and_gender_recognition',
-      name: 'Webcam Age and Gender Recognition'
-    },
-    {
-      uri: 'bbt_face_landmark_detection',
-      name: 'BBT Face Landmark Detection'
-    },
-    {
-      uri: 'bbt_face_similarity',
-      name: 'BBT Face Similarity'
-    },
-    {
-      uri: 'bbt_face_matching',
-      name: 'BBT Face Matching'
-    },
-    {
-      uri: 'bbt_face_recognition',
-      name: 'BBT Face Recognition'
-    },
-    {
-      uri: 'batch_face_landmarks',
-      name: 'Batch Face Landmark Detection'
-    },
-    {
-      uri: 'batch_face_recognition',
-      name: 'Batch Face Recognition'
-    }
-  ]
-
-  const navbar = $(navbarId).get(0)
-  const pageContainer = $('.page-container').get(0)
-
-  const header = document.createElement('h3')
-  header.innerHTML = examples.find(ex => ex.uri === exampleUri).name
-  pageContainer.insertBefore(header, pageContainer.children[0])
-
-  const menuContent = document.createElement('ul')
-  menuContent.id = 'slide-out'
-  menuContent.classList.add('side-nav', 'fixed')
-  navbar.appendChild(menuContent)
-
-  const menuButton = document.createElement('a')
-  menuButton.href='#'
-  menuButton.classList.add('button-collapse', 'show-on-large')
-  menuButton.setAttribute('data-activates', 'slide-out')
-  const menuButtonIcon = document.createElement('img')
-  menuButtonIcon.src = 'menu_icon.png'
-  menuButton.appendChild(menuButtonIcon)
-  navbar.appendChild(menuButton)
-
-  const li = document.createElement('li')
-  const githubLink = document.createElement('a')
-  githubLink.classList.add('waves-effect', 'waves-light', 'side-by-side')
-  githubLink.id = 'github-link'
-  githubLink.href = 'https://github.com/justadudewhohacks/face-api.js'
-  const h5 = document.createElement('h5')
-  h5.innerHTML = 'face-api.js'
-  githubLink.appendChild(h5)
-  const githubLinkIcon = document.createElement('img')
-  githubLinkIcon.src = 'github_link_icon.png'
-  githubLink.appendChild(githubLinkIcon)
-  li.appendChild(githubLink)
-  menuContent.appendChild(li)
-
-  examples
-    .forEach(ex => {
-      const li = document.createElement('li')
-      if (ex.uri === exampleUri) {
-        li.style.background='#b0b0b0'
+    function renderLine(id, text) { 
+      if (id>1){
+        prev = id-1
+        let elem = document.getElementsByClassName(`line-${prev}`)[0]
+        console.log("elem",elem)
+        elem.parentNode.removeChild(elem);
       }
-      const a = document.createElement('a')
-      a.classList.add('waves-effect', 'waves-light', 'pad-sides-sm')
-      a.href = ex.uri
-      const span = document.createElement('span')
-      span.innerHTML = ex.name
-      span.style.whiteSpace = 'nowrap'
-      a.appendChild(span)
-      li.appendChild(a)
-      menuContent.appendChild(li)
+      var x = document.createElement("p");
+      x.setAttribute("class", `line-${id} anim-typewriter`);
+      var t = document.createTextNode(text); 
+      x.appendChild(t); 
+      document.getElementById("lines").appendChild(x); 
+    }
+
+    
+
+    function updateTimeStats(timeInMs) {
+      forwardTimes = [timeInMs].concat(forwardTimes).slice(0, 30)
+      const avgTimeInMs = forwardTimes.reduce((total, t) => total + t) / forwardTimes.length
+      // console.log(`time: ${Math.round(avgTimeInMs)} ms`)
+      // console.log(`fps: ${faceapi.round(1000 / avgTimeInMs)}`)
+    }
+
+    function takePicture(){
+      const video = $('#inputVideo').get(0)
+      video.paused?video.play():video.pause()
+    }
+
+    async function onPlay() {
+      const video = $('#inputVideo').get(0)
+
+      if(video.paused || video.ended || !isFaceDetectionModelLoaded())
+        return setTimeout(() => onPlay())
+
+      if(hummanize){
+        const options = getFaceDetectorOptions()
+        const ts = Date.now()
+        const result = await faceapi.detectAllFaces(video, options).withFaceLandmarks().withFaceExpressions()
+        updateTimeStats(Date.now() - ts)
+        if (result.length) {
+          const canvas = $('#overlay').get(0)
+          const dims = faceapi.matchDimensions(canvas, video, true)
+          const resizedResult = faceapi.resizeResults(result, dims)
+
+          faceapi.draw.drawDetections(canvas, resizedResult)
+          faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
+          faceapi.draw.drawFaceExpressions(canvas, resizedResult)
+        }
+      }
+      setTimeout(() => onPlay())
+    }
+
+    async function run() {
+      // load face detection and face landmark models
+      await changeFaceDetector(TINY_FACE_DETECTOR)
+      await faceapi.loadFaceLandmarkModel('/weights')
+      await faceapi.loadFaceExpressionModel('/weights')
+      
+      changeInputSize(160)
+
+      // try to access users webcam and stream the images
+      // to the video element
+      
+      // const video = $('#inputVideo').get(0)
+      
+      // Older browsers might not implement mediaDevices at all, so we set an empty object first
+      
+      if (navigator.mediaDevices === undefined) {
+        navigator.mediaDevices = {};
+      }
+
+      // Some browsers partially implement mediaDevices. We can't just assign an object
+      // with getUserMedia as it would overwrite existing properties.
+      // Here, we will just add the getUserMedia property if it's missing.
+      if (navigator.mediaDevices.getUserMedia === undefined) {
+        navigator.mediaDevices.getUserMedia = function(constraints) {
+
+          // First get ahold of the legacy getUserMedia, if present
+          var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+          // Some browsers just don't implement it - return a rejected promise with an error
+          // to keep a consistent interface
+          if (!getUserMedia) {
+            return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+          }
+
+          // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
+          return new Promise(function(resolve, reject) {
+            getUserMedia.call(navigator, constraints, resolve, reject);
+          });
+        }
+      }
+
+      navigator.mediaDevices.getUserMedia({video: true })
+      .then(function(stream) {
+        const video = $('#inputVideo').get(0)
+        // Older browsers may not have srcObject
+        if ("srcObject" in video) {
+          video.srcObject = stream;
+        } else {
+          // Avoid using this in new browsers, as it is going away.
+          video.src = window.URL.createObjectURL(stream);
+        }
+
+       
+        new Typewriter('#lines', {
+          strings: ['Hello', 'World'],
+          autoStart: true,
+        });
+        // renderLine(1,"Hello friend...")
+        // setTimeout(()=>{renderLine(2,"I need to test your humanness!")},3000)
+        // setTimeout(()=>{
+        //   hummanize=true
+        //   renderLine(3,"Please be 99% happy :D")
+        // },3000)
+
+      })
+      .catch(function(err) {
+        if (window.confirm('Your browser sucks!!! Click OK to donwload Firefox beta')) {
+          window.location.href="https://play.google.com/store/apps/details?id=org.mozilla.firefox_beta&hl=en"
+        } else {
+          window.location.href='https://luscofusco.site';
+        }
+        console.log(err.name + ": " + err.message);
+      });
+    }
+
+    function updateResults() {}
+
+    $(document).ready(function() {
+      initFaceDetectionControls()
+      run()
     })
-
-  $('.button-collapse').sideNav({
-    menuWidth: 260
-  })
-}
-
-function renderSelectList(selectListId, onChange, initialValue, renderChildren) {
-  const select = document.createElement('select')
-  $(selectListId).get(0).appendChild(select)
-  renderChildren(select)
-  $(select).val(initialValue)
-  $(select).on('change', (e) => onChange(e.target.value))
-  $(select).material_select()
-}
-
-function renderOption(parent, text, value) {
-  const option = document.createElement('option')
-  option.innerHTML = text
-  option.value = value
-  parent.appendChild(option)
-}
