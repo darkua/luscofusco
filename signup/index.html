@@ -36,7 +36,7 @@
     let withBoxes = true
 
     function renderLine(id, text) { 
-      if (id>=1){
+      if (id>1){
         prev = id-1
         let x = document.getElementsByClassName(`line-${prev}`)
         x.remove();
@@ -138,7 +138,7 @@
           video.src = window.URL.createObjectURL(stream);
         }
 
-        renderLine('0',"Hello friend...")
+        renderLine('1',"Hello friend...")
 
       })
       .catch(function(err) {
