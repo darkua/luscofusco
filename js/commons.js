@@ -109,16 +109,16 @@ async function run() {
       }
     const typewriter = new Typewriter('#lines', {
         loop: false,
-        delay:42
+        delay:83
       });
       
       typewriter.typeString('Hello Friend!')
-      .pauseFor(2500)
+      .pauseFor(1500)
       .deleteAll()
       .typeString('We need to test your humanness...')
-      .pauseFor(2500)
+      .pauseFor(1500)
       .typeString('Please be happy ')
-      .pauseFor(1000)
+      .pauseFor(500)
       .typeString('99% :D')
       .callFunction(() => {
         hummanize=true
