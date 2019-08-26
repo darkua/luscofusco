@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   
@@ -49,6 +50,7 @@
       document.getElementById("lines").appendChild(x); 
     }
 
+    import Typewriter from 'typewriter-effect/dist/core';
 
     function updateTimeStats(timeInMs) {
       forwardTimes = [timeInMs].concat(forwardTimes).slice(0, 30)
@@ -137,6 +139,11 @@
           // Avoid using this in new browsers, as it is going away.
           video.src = window.URL.createObjectURL(stream);
         }
+
+        new Typewriter('#lines', {
+          strings: ['Hello', 'Friend'],
+          autoStart: true,
+        });
 
         renderLine(1,"Hello friend...")
         setTimeout(()=>{renderLine(2,"I need to test your humanness!")},3000)
