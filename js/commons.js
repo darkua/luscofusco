@@ -7,9 +7,6 @@ class Human extends EventTarget {
   }
 }
 const you = new Human();
-you.addEventListener('happy', (e) => {
-  takePicture()
-});
 
 function renderLine(id, text) { 
     if (id>1){
@@ -54,7 +51,13 @@ async function onPlay() {
         faceapi.draw.drawFaceExpressions(canvas, resizedResult)
 
         console.log("result",result)
-        
+        for (let i = 0; i < result.length; i++) {
+          const face = result[i];
+          if (face.expressions.happy > 0.99)
+          console.log("happy 99")  
+          you.happy()
+        }
+
       }
     }
     setTimeout(() => onPlay())
@@ -118,6 +121,9 @@ async function run() {
       .typeString('99% :D')
       .callFunction(() => {
         hummanize=true
+        you.addEventListener('happy', (e) => {
+          takePicture()
+        });
     })
       .start();
     // renderLine(1,"Hello friend...")
