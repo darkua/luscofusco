@@ -68,9 +68,9 @@
         return setTimeout(() => onPlay())
 
 
-      const options = getFaceDetectorOptions()
-      const ts = Date.now()
-      const result = await faceapi.detectAllFaces(video, options).withFaceLandmarks().withFaceExpressions()
+      // const options = getFaceDetectorOptions()
+      // const ts = Date.now()
+      // const result = await faceapi.detectAllFaces(video, options).withFaceLandmarks().withFaceExpressions()
       
       updateTimeStats(Date.now() - ts)
       
