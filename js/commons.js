@@ -1,5 +1,3 @@
-import Typewriter from 'typewriter-effect/dist/core';
-
 let forwardTimes = []
     let hummanize = false
 
@@ -107,11 +105,20 @@ let forwardTimes = []
           video.src = window.URL.createObjectURL(stream);
         }
 
-       
-        new Typewriter('#lines', {
-          strings: ['Hello', 'World'],
-          autoStart: true,
+        const typewriter = new Typewriter('#lines', {
+          loop: true,
         });
+        
+        typewriter.typeString('Hello Friend!')
+        .pauseFor(2500)
+        .deleteAll()
+        .typeString('We need to test your humanness...')
+        .pauseFor(2500)
+        .typeString('Please be happy ')
+        .pauseFor(1000)
+        .typeString('99% :D')
+        .start();
+
         // renderLine(1,"Hello friend...")
         // setTimeout(()=>{renderLine(2,"I need to test your humanness!")},3000)
         // setTimeout(()=>{
