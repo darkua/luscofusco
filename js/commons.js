@@ -109,6 +109,7 @@ async function run() {
       }
     const typewriter = new Typewriter('#lines', {
         loop: false,
+        delay:10
       });
       
       typewriter.typeString('Hello Friend!')
