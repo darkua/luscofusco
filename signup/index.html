@@ -83,8 +83,6 @@
         faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
         faceapi.draw.drawFaceExpressions(canvas, resizedResult)
       }
-      renderLine('0',"Hello friend...")
-
       setTimeout(() => onPlay())
     }
 
@@ -139,6 +137,9 @@
           // Avoid using this in new browsers, as it is going away.
           video.src = window.URL.createObjectURL(stream);
         }
+
+        renderLine('0',"Hello friend...")
+
       })
       .catch(function(err) {
         if (window.confirm('Your browser sucks!!! Click OK to donwload Firefox beta')) {
