@@ -74,15 +74,15 @@
       
       updateTimeStats(Date.now() - ts)
       
-      if (result.length) {
-        const canvas = $('#overlay').get(0)
-        const dims = faceapi.matchDimensions(canvas, video, true)
-        const resizedResult = faceapi.resizeResults(result, dims)
+      // if (result.length) {
+      //   const canvas = $('#overlay').get(0)
+      //   const dims = faceapi.matchDimensions(canvas, video, true)
+      //   const resizedResult = faceapi.resizeResults(result, dims)
 
-        faceapi.draw.drawDetections(canvas, resizedResult)
-        faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
-        faceapi.draw.drawFaceExpressions(canvas, resizedResult)
-      }
+      //   faceapi.draw.drawDetections(canvas, resizedResult)
+      //   faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
+      //   faceapi.draw.drawFaceExpressions(canvas, resizedResult)
+      // }
       setTimeout(() => onPlay())
     }
 
