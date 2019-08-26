@@ -85,8 +85,8 @@ video {
   margin: 10px;
 }
 
-/* line animation */
-
+/* line1 */
+/* Hello Friend */
 .line-1{
   position: relative;
   top: 50%;  
@@ -102,7 +102,7 @@ video {
 }
 
 /* Animation */
-.anim-typewriter{
+.line-1 .anim-typewriter{
 animation: typewriter 1s steps(44) 1s 1 normal both,
            blinkTextCursor 10ms steps(44) infinite normal;
 }
@@ -114,4 +114,61 @@ to{width: 7em;}
 from{border-right-color: rgba(255,255,255,.75);}
 to{border-right-color: transparent;}
 }
+
+/* we need to test your humanness! */
+.line-2{
+  position: relative;
+  top: 50%;  
+  width: 23em;
+  margin: 0 auto;
+  border-right: 2px solid rgba(255,255,255,.75);
+  font-size: 180%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  transform: translateY(-50%);    
+  color:white;
+}
+
+/* Animation */
+.line-2 .anim-typewriter{
+animation: typewriter 2s steps(44) 2s 1 normal both,
+           blinkTextCursor 10ms steps(44) infinite normal;
+}
+@keyframes typewriter{
+from{width: 0;}
+to{width: 23em;}
+}
+@keyframes blinkTextCursor{
+from{border-right-color: rgba(255,255,255,.75);}
+to{border-right-color: transparent;}
+}
+
+/* "Please be 99% happy :D*/
+.line-3{
+  position: relative;
+  top: 50%;  
+  width: 14em;
+  margin: 0 auto;
+  border-right: 2px solid rgba(255,255,255,.75);
+  font-size: 180%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  transform: translateY(-50%);    
+  color:white;
+}
+
+/* Animation */
+.line-3 .anim-typewriter{
+animation: typewriter 2s steps(44) 2s 1 normal both,
+           blinkTextCursor 10ms steps(44) infinite normal;
+}
+@keyframes typewriter{
+from{width: 0;}
+to{width: 14em;}
+}
+@keyframes blinkTextCursor{
+from{border-right-color: rgba(255,255,255,.75);}
+to{border-right-color: transparent;}
 }

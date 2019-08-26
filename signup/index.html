@@ -33,7 +33,7 @@
 
   <script>
     let forwardTimes = []
-    let withBoxes = true
+    let hummanize = false
 
     function renderLine(id, text) { 
       if (id>1){
@@ -67,22 +67,21 @@
       if(video.paused || video.ended || !isFaceDetectionModelLoaded())
         return setTimeout(() => onPlay())
 
+      if(hummanize){
+        const options = getFaceDetectorOptions()
+        const ts = Date.now()
+        const result = await faceapi.detectAllFaces(video, options).withFaceLandmarks().withFaceExpressions()
+        updateTimeStats(Date.now() - ts)
+        if (result.length) {
+          const canvas = $('#overlay').get(0)
+          const dims = faceapi.matchDimensions(canvas, video, true)
+          const resizedResult = faceapi.resizeResults(result, dims)
 
-      // const options = getFaceDetectorOptions()
-      // const ts = Date.now()
-      // const result = await faceapi.detectAllFaces(video, options).withFaceLandmarks().withFaceExpressions()
-      
-      updateTimeStats(Date.now() - ts)
-      
-      // if (result.length) {
-      //   const canvas = $('#overlay').get(0)
-      //   const dims = faceapi.matchDimensions(canvas, video, true)
-      //   const resizedResult = faceapi.resizeResults(result, dims)
-
-      //   faceapi.draw.drawDetections(canvas, resizedResult)
-      //   faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
-      //   faceapi.draw.drawFaceExpressions(canvas, resizedResult)
-      // }
+          faceapi.draw.drawDetections(canvas, resizedResult)
+          faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
+          faceapi.draw.drawFaceExpressions(canvas, resizedResult)
+        }
+      }
       setTimeout(() => onPlay())
     }
 
@@ -139,6 +138,11 @@
         }
 
         renderLine('1',"Hello friend...")
+        setTimeout(()=>{renderLine('2',"I need to test your humanness...")},3000)
+        setTimeout(()=>{
+          hummanize=true
+          renderLine('3',"Please be 99% happy")
+        },3000)
 
       })
       .catch(function(err) {
