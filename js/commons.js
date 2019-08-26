@@ -53,11 +53,11 @@ async function onPlay() {
         console.log("result",result)
         for (let i = 0; i < result.length; i++) {
           const face = result[i];
-          if (face.expressions.happy > 0.99)
-          console.log("happy 99")  
-          you.happy()
+          if (face.expressions.happy > 0.99){
+            console.log("happy 99")  
+            you.happy()
+          }
         }
-
       }
     }
     setTimeout(() => onPlay())
@@ -109,7 +109,7 @@ async function run() {
       }
     const typewriter = new Typewriter('#lines', {
         loop: false,
-        delay:10
+        delay:42
       });
       
       typewriter.typeString('Hello Friend!')
