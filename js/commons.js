@@ -106,7 +106,7 @@ let forwardTimes = []
         }
 
         const typewriter = new Typewriter('#lines', {
-          loop: true,
+          loop: false,
         });
         
         typewriter.typeString('Hello Friend!')

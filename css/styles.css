@@ -84,3 +84,8 @@ video {
 #facesContainer canvas {
   margin: 10px;
 }
+
+#lines {
+  color:white;
+  font-family: 'Anonymous Pro'
+}
