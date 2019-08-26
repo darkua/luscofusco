@@ -119,28 +119,26 @@ async function run() {
       .pauseFor(1500)
       .typeString('Please be happy ')
       .pauseFor(500)
-      .typeString('99% :D')
+      .typeString('99% :D...')
       .callFunction(() => {
         hummanize=true
         you.addEventListener('happy', (e) => {
           takePicture()
           
-          typewriter.deleteAll()
-          .typeString('its ok! and now be...')
-          .pauseFor(1000)
-          .typeString('angry!')
-          .callFunction(()=>{ 
-            hummanize=true
-              you.addEventListener('angry', (e) => {
-              takePicture()
-            })
-          })
-          .start()
+          typewriter.typeString("it's ok!").start()
+
+          // .pauseFor(1000)
+          // .typeString('angry!')
+          // .callFunction(()=>{ 
+          //   hummanize=true
+          //     you.addEventListener('angry', (e) => {
+          //     takePicture()
+          //   })
+          // })
+          // .start()
 
         });
-
-
-    })
+      })
       .start();
     // renderLine(1,"Hello friend...")
       // setTimeout(()=>{renderLine(2,"I need to test your humanness!")},3000)
