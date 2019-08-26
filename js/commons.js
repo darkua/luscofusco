@@ -117,6 +117,9 @@ let forwardTimes = []
         .typeString('Please be happy ')
         .pauseFor(1000)
         .typeString('99% :D')
+        .callFunction(() => {
+          hummanize=true
+        })
         .start();
 
         // renderLine(1,"Hello friend...")
