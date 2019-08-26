@@ -38,8 +38,8 @@
     function renderLine(id, text) { 
       if (id>1){
         prev = id-1
-        let x = document.getElementsByClassName(`line-${prev}`)
-        x.remove();
+        let elem = document.getElementsByClassName(`line-${prev}`)
+        elem.parentNode.removeChild(elem);
       }
       var x = document.createElement("p");
       x.setAttribute("class", `line-${id} anim-typewriter`);
@@ -138,10 +138,10 @@
         }
 
         renderLine('1',"Hello friend...")
-        setTimeout(()=>{renderLine('2',"I need to test your humanness...")},3000)
+        setTimeout(()=>{renderLine('2',"I need to test your humanness!")},3000)
         setTimeout(()=>{
           hummanize=true
-          renderLine('3',"Please be 99% happy")
+          renderLine('3',"Please be 99% happy :D")
         },3000)
 
       })
