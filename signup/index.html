@@ -39,6 +39,7 @@
       if (id>1){
         prev = id-1
         let elem = document.getElementsByClassName(`line-${prev}`)
+        console.log("elem",elem)
         elem.parentNode.removeChild(elem);
       }
       var x = document.createElement("p");
@@ -137,11 +138,11 @@
           video.src = window.URL.createObjectURL(stream);
         }
 
-        renderLine('1',"Hello friend...")
-        setTimeout(()=>{renderLine('2',"I need to test your humanness!")},3000)
+        renderLine(1,"Hello friend...")
+        setTimeout(()=>{renderLine(2,"I need to test your humanness!")},3000)
         setTimeout(()=>{
           hummanize=true
-          renderLine('3',"Please be 99% happy :D")
+          renderLine(3,"Please be 99% happy :D")
         },3000)
 
       })
