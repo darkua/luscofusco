@@ -124,7 +124,22 @@ async function run() {
         hummanize=true
         you.addEventListener('happy', (e) => {
           takePicture()
+          
+          typewriter.deleteAll()
+          .typeString('its ok! and now be...')
+          .pauseFor(1000)
+          .typeString('angry!')
+          .callFunction(()=>{ 
+            hummanize=true
+              you.addEventListener('angry', (e) => {
+              takePicture()
+            })
+          })
+          .start()
+
         });
+
+
     })
       .start();
     // renderLine(1,"Hello friend...")
