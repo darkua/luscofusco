@@ -81,6 +81,10 @@ video {
   
 }
 
+.logo{
+  width:20%;
+}
+
 #facesContainer canvas {
   margin: 10px;
 }
