@@ -59,6 +59,9 @@ async function onPlay() {
           if (face.expressions.happy > 0.99){
             you.happy()
           }
+          if (face.expressions.angry > 0.99){
+            you.angry()
+          }
         }
       }
     }
@@ -132,6 +135,7 @@ async function run() {
           .pauseFor(500)
           .typeString('angry :O')
           .callFunction(() => {
+            video.play()
             hummanize=true
             you.addEventListener('angry', (e) => {
               takePicture()
@@ -145,6 +149,7 @@ async function run() {
               .typeString('1...')
               .pauseFor(500)
               .callFunction(() => {
+                video.play()
                 hummanize=true
                 takePicture()
                 typewriter.typeString("well done, i can confirm you are a human :D welcome to Lusco Fusco! This is your ticket").start()
