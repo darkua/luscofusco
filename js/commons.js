@@ -117,13 +117,13 @@ async function run() {
         delay:83
       });
       
-      typewriter.typeString('Hello Friend!')
+      typewriter.typeString('Hello Friend! ')
       .pauseFor(2000)
-      .typeString('We need to test your humanness...')
+      .typeString('We need to test your humanness... ')
       .pauseFor(1000)
-      .typeString('Please be 99%...')
+      .typeString('Please be 99%... ')
       .pauseFor(500)
-      .typeString('happy :D')
+      .typeString('happy :D ')
       .callFunction(() => {
         hummanize=true
         you.addEventListener('happy', (e) => {
@@ -133,13 +133,16 @@ async function run() {
           .pauseFor(1000)
           .typeString('now please be 99%... ')
           .pauseFor(500)
-          .typeString('angry :O')
+          .typeString('angry :O ')
           .callFunction(() => {
             video.play()
             hummanize=true
             you.addEventListener('angry', (e) => {
               takePicture()
-              typewriter.typeString("arrrrr! its o.k. ")   
+              
+              typewriter.typeString("its o.k. ")   
+              .pauseFor(1000)
+              .callFunction(video.play)
               .typeString('now be yourself in... ')
               .pauseFor(500)
               .typeString('3... ')
