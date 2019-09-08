@@ -151,6 +151,7 @@ async function run() {
       .callFunction(() => {
         hummanize=true
         you.addEventListener('happy', (e) => {
+          console.log("happy fired")
           takePicture()
           if(happy > 1 ){
             happy++
