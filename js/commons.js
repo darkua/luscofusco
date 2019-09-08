@@ -129,9 +129,9 @@ async function run() {
         you.addEventListener('happy', (e) => {
           takePicture()
           
-          typewriter.typeString("it's o.k.")
+          typewriter.typeString("it's o.k. ")
           .pauseFor(1000)
-          .typeString('now please be 99%...')
+          .typeString('now please be 99%... ')
           .pauseFor(500)
           .typeString('angry :O')
           .callFunction(() => {
@@ -139,17 +139,16 @@ async function run() {
             hummanize=true
             you.addEventListener('angry', (e) => {
               takePicture()
-              typewriter.typeString("arrrrr! its o.k.")   
-              .typeString('now be yourself in...')
+              typewriter.typeString("arrrrr! its o.k. ")   
+              .typeString('now be yourself in... ')
               .pauseFor(500)
-              .typeString('3...')
-              .pauseFor(500)
-              .typeString('2...')
-              .pauseFor(500)
-              .typeString('1...')
-              .pauseFor(500)
+              .typeString('3... ')
+              .pauseFor(1000)
+              .typeString('2... ')
+              .pauseFor(1000)
+              .typeString('1... ')
+              .pauseFor(1000)
               .callFunction(() => {
-                video.play()
                 hummanize=true
                 takePicture()
                 typewriter.typeString("well done, i can confirm you are a human :D welcome to Lusco Fusco! This is your ticket").start()
