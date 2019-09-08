@@ -131,6 +131,7 @@ async function run() {
         you.addEventListener('happy', (e) => {
           takePicture()
           if(happy){
+            humanize = false
             typewriter.typeString("Yes that is very Ok smile. congratulations, You are human. Welcome to lusco fusco. This is your ticket").start()  
           }
           typewriter.typeString("it's o.k. ")
