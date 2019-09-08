@@ -53,7 +53,6 @@ async function onPlay() {
         faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
         faceapi.draw.drawFaceExpressions(canvas, resizedResult)
 
-        console.log("result",result)
         for (let i = 0; i < result.length; i++) {
           const face = result[i];
           if (face.expressions.happy > 0.99){
@@ -130,12 +129,14 @@ async function run() {
         hummanize=true
         you.addEventListener('happy', (e) => {
           takePicture()
+          humanize = false
           if(happy){
             humanize = false
-            typewriter.typeString("Yes that is very Ok smile. congratulations, You are human. Welcome to lusco fusco. This is your ticket ").start()  
+            typewriter.typeString("Yes that is very Ok smile. congratulations, You are human. Welcome to lusco fusco. This is your ticket ").start()
+            return
           }
           typewriter.typeString("it's o.k. ")
-          .pauseFor(1000)
+          .pauseFor(3000)
           .typeString('but you can smile more, try again... ').start()
           happy = true
           video.play()
