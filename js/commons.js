@@ -5,6 +5,9 @@ class Human extends EventTarget {
   happy() {
     this.dispatchEvent(new Event('happy'));
   }
+  angry() {
+    this.dispatchEvent(new Event('angry'));
+  }
 }
 const you = new Human();
 
@@ -54,7 +57,6 @@ async function onPlay() {
         for (let i = 0; i < result.length; i++) {
           const face = result[i];
           if (face.expressions.happy > 0.99){
-            console.log("happy 99")  
             you.happy()
           }
         }
@@ -113,40 +115,45 @@ async function run() {
       });
       
       typewriter.typeString('Hello Friend!')
-      .pauseFor(1500)
-      .deleteAll()
+      .pauseFor(2000)
       .typeString('We need to test your humanness...')
-      .pauseFor(1500)
-      .typeString('Please be happy ')
+      .pauseFor(1000)
+      .typeString('Please be 99%...')
       .pauseFor(500)
-      .typeString('99% :D...')
+      .typeString('happy :D')
       .callFunction(() => {
         hummanize=true
         you.addEventListener('happy', (e) => {
           takePicture()
           
-          typewriter.typeString("it's ok!").start()
-
-          // .pauseFor(1000)
-          // .typeString('angry!')
-          // .callFunction(()=>{ 
-          //   hummanize=true
-          //     you.addEventListener('angry', (e) => {
-          //     takePicture()
-          //   })
-          // })
-          // .start()
-
-        });
-      })
-      .start();
-    // renderLine(1,"Hello friend...")
-      // setTimeout(()=>{renderLine(2,"I need to test your humanness!")},3000)
-      // setTimeout(()=>{
-      //   hummanize=true
-      //   renderLine(3,"Please be 99% happy :D")
-      // },3000)
-  })
+          typewriter.typeString("it's o.k.")
+          .pauseFor(1000)
+          .typeString('now please be 99%...')
+          .pauseFor(500)
+          .typeString('angry :O')
+          .callFunction(() => {
+            hummanize=true
+            you.addEventListener('angry', (e) => {
+              takePicture()
+              typewriter.typeString("arrrrr! its o.k.")   
+              .typeString('now be yourself in...')
+              .pauseFor(500)
+              .typeString('3...')
+              .pauseFor(500)
+              .typeString('2...')
+              .pauseFor(500)
+              .typeString('1...')
+              .pauseFor(500)
+              .callFunction(() => {
+                hummanize=true
+                takePicture()
+                typewriter.typeString("well done, i can confirm you are a human :D welcome to Lusco Fusco! This is your ticket")   
+              })
+            })
+          })
+        })
+      }).start()
+    })
     .catch(function(err) {
       if (window.confirm('Your browser sucks!!! Click OK to donwload Firefox beta')) {
         window.location.href="https://play.google.com/store/apps/details?id=org.mozilla.firefox_beta&hl=en"
