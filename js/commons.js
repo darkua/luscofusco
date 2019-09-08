@@ -117,6 +117,8 @@ async function run() {
         delay:83
       });
       
+      happy = false
+
       typewriter.typeString('Hello Friend! ')
       .pauseFor(2000)
       .typeString('We need to test your humanness... ')
@@ -128,45 +130,19 @@ async function run() {
         hummanize=true
         you.addEventListener('happy', (e) => {
           takePicture()
-          
+          if(happy){
+            typewriter.typeString("Yes that is very Ok smile. congratulations, You are human. Welcome to lusco fusco. This is your ticket").start()  
+          }
           typewriter.typeString("it's o.k. ")
           .pauseFor(1000)
-          .typeString('now please be 99%... ')
-          .pauseFor(500)
-          .typeString('angry :O ')
-          .callFunction(() => {
-            video.play()
-            hummanize=true
-            you.addEventListener('angry', (e) => {
-              takePicture()
-              
-              typewriter.typeString("its o.k. ")   
-              .pauseFor(1000)
-              .callFunction(()=>{
-                console.log("after angry")
-                video.play()
-              })
-              .typeString('now be yourself in... ')
-              .pauseFor(500)
-              .typeString('3... ')
-              .pauseFor(1000)
-              .typeString('2... ')
-              .pauseFor(1000)
-              .typeString('1... ')
-              .pauseFor(1000)
-              .callFunction(() => {
-                console.log("after angry")
-                takePicture()
-                hummanize=false
-                typewriter.typeString("well done, i can confirm you are a human :D welcome to Lusco Fusco! This is your ticket").start()
-              }).start()
-            })
-          }).start()
+          .typeString('but you can smile more, try again...').start()
+          happy = true
+          video.play()
         })
       }).start()
     })
     .catch(function(err) {
-      if (window.confirm('Your browser sucks!!! Click OK to donwload Firefox beta')) {
+      if (window.confirm('Your browser is old school!!! Click OK to donwload Firefox beta')) {
         window.location.href="https://play.google.com/store/apps/details?id=org.mozilla.firefox_beta&hl=en"
       } else {
         window.location.href='https://luscofusco.site';
