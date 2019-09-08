@@ -50,9 +50,13 @@ function generateThumbnail(i) {
 
 function takePicture(){
     const video = $('#inputVideo').get(0)
-    video.paused?video.play():video.pause()
-
-  }
+    if(!video.paused){
+      generateThumbnail()
+      video.pause()
+    } else {
+      video.play()
+    }
+}
 async function onPlay() {
     const video = $('#inputVideo').get(0)
   if(video.paused || video.ended || !isFaceDetectionModelLoaded())
