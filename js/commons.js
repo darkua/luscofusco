@@ -153,18 +153,21 @@ async function run() {
         you.addEventListener('happy', (e) => {
           takePicture()
           if(happy > 1 ){
+            happy++
             typewriter.typeString("it's o.k. ").start()
           }
           if(happy === 1 ){
+            happy++
             typewriter.typeString("Yes that is very Ok smile. congratulations, You are human. Welcome to lusco fusco. This is your ticket ").start()
           }
           if(happy === 0){
+            happy++
             typewriter.typeString("it's o.k. ")
             .pauseFor(3000)
             typewriter.typeString('but you can smile more, try again... ').start()
-            happy++
             video.play()
           }
+          
         })
       }).start()
     })
