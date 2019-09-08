@@ -132,11 +132,11 @@ async function run() {
           takePicture()
           if(happy){
             humanize = false
-            typewriter.typeString("Yes that is very Ok smile. congratulations, You are human. Welcome to lusco fusco. This is your ticket").start()  
+            typewriter.typeString("Yes that is very Ok smile. congratulations, You are human. Welcome to lusco fusco. This is your ticket ").start()  
           }
           typewriter.typeString("it's o.k. ")
           .pauseFor(1000)
-          .typeString('but you can smile more, try again...').start()
+          .typeString('but you can smile more, try again... ').start()
           happy = true
           video.play()
         })
