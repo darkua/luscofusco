@@ -142,7 +142,10 @@ async function run() {
               
               typewriter.typeString("its o.k. ")   
               .pauseFor(1000)
-              .callFunction(video.play)
+              .callFunction(()=>{
+                console.log("after angry")
+                video.play()
+              })
               .typeString('now be yourself in... ')
               .pauseFor(500)
               .typeString('3... ')
@@ -152,6 +155,7 @@ async function run() {
               .typeString('1... ')
               .pauseFor(1000)
               .callFunction(() => {
+                console.log("after angry")
                 takePicture()
                 hummanize=false
                 typewriter.typeString("well done, i can confirm you are a human :D welcome to Lusco Fusco! This is your ticket").start()
