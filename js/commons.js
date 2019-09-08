@@ -31,9 +31,27 @@ function updateTimeStats(timeInMs) {
     // console.log(`time: ${Math.round(avgTimeInMs)} ms`)
     // console.log(`fps: ${faceapi.round(1000 / avgTimeInMs)}`)
   }
+
+function generateThumbnail(i) {     
+    //generate thumbnail URL data
+    const thecanvas = $('#overlay').get(0)
+    const video = $('#inputVideo').get(0)
+    var context = thecanvas.getContext('2d');
+    context.drawImage(video, 0, 0, 220, 150);
+    var dataURL = thecanvas.toDataURL();
+
+    //create img
+    var img = document.createElement('img');
+    img.setAttribute('src', dataURL);
+
+    //append img in container div
+    document.getElementById('thumbnailContainer').appendChild(img);
+}
+
 function takePicture(){
     const video = $('#inputVideo').get(0)
     video.paused?video.play():video.pause()
+
   }
 async function onPlay() {
     const video = $('#inputVideo').get(0)
@@ -117,7 +135,7 @@ async function run() {
         delay:83
       });
       
-      happy = false
+      happy = 0
 
       typewriter.typeString('Hello Friend! ')
       .pauseFor(2000)
@@ -130,15 +148,14 @@ async function run() {
         hummanize=true
         you.addEventListener('happy', (e) => {
           takePicture()
-          video.pause()
-          if(happy){
+          if(happy == 1 ){
             typewriter.typeString("Yes that is very Ok smile. congratulations, You are human. Welcome to lusco fusco. This is your ticket ").start()
             return
           }
           typewriter.typeString("it's o.k. ")
           .pauseFor(3000)
-          .typeString('but you can smile more, try again... ').start()
-          happy = true
+          typewriter.typeString('but you can smile more, try again... ').start()
+          happy++
           video.play()
         })
       }).start()
