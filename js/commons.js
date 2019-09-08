@@ -152,15 +152,19 @@ async function run() {
         hummanize=true
         you.addEventListener('happy', (e) => {
           takePicture()
-          if(happy == 1 ){
-            typewriter.typeString("Yes that is very Ok smile. congratulations, You are human. Welcome to lusco fusco. This is your ticket ").start()
-            return
+          if(happy > 1 ){
+            typewriter.typeString("it's o.k. ").start()
           }
-          typewriter.typeString("it's o.k. ")
-          .pauseFor(3000)
-          typewriter.typeString('but you can smile more, try again... ').start()
-          happy++
-          video.play()
+          if(happy === 1 ){
+            typewriter.typeString("Yes that is very Ok smile. congratulations, You are human. Welcome to lusco fusco. This is your ticket ").start()
+          }
+          if(happy === 0){
+            typewriter.typeString("it's o.k. ")
+            .pauseFor(3000)
+            typewriter.typeString('but you can smile more, try again... ').start()
+            happy++
+            video.play()
+          }
         })
       }).start()
     })
