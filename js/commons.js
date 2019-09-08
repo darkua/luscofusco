@@ -40,6 +40,7 @@ async function onPlay() {
   if(video.paused || video.ended || !isFaceDetectionModelLoaded())
       return setTimeout(() => onPlay())
   if(hummanize){
+      console.log("processing...")
       const options = getFaceDetectorOptions()
       const ts = Date.now()
       const result = await faceapi.detectAllFaces(video, options).withFaceLandmarks().withFaceExpressions()
@@ -129,9 +130,8 @@ async function run() {
         hummanize=true
         you.addEventListener('happy', (e) => {
           takePicture()
-          humanize = false
+          video.pause()
           if(happy){
-            humanize = false
             typewriter.typeString("Yes that is very Ok smile. congratulations, You are human. Welcome to lusco fusco. This is your ticket ").start()
             return
           }
