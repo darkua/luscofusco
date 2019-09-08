@@ -147,10 +147,10 @@ async function run() {
               .callFunction(() => {
                 hummanize=true
                 takePicture()
-                typewriter.typeString("well done, i can confirm you are a human :D welcome to Lusco Fusco! This is your ticket")   
-              })
+                typewriter.typeString("well done, i can confirm you are a human :D welcome to Lusco Fusco! This is your ticket").start()
+              }).start()
             })
-          })
+          }).start()
         })
       }).start()
     })
