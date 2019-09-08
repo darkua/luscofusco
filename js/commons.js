@@ -152,8 +152,8 @@ async function run() {
               .typeString('1... ')
               .pauseFor(1000)
               .callFunction(() => {
-                hummanize=true
                 takePicture()
+                hummanize=false
                 typewriter.typeString("well done, i can confirm you are a human :D welcome to Lusco Fusco! This is your ticket").start()
               }).start()
             })
