@@ -171,7 +171,6 @@ async function run() {
         })
 
         you.addEventListener('veryhappy',(e)=>{
-          you.removeEventListener('happy')
           happy++
           typewriter.typeString("its ok, You are human.  A bot would be not be so stupid to do it twice :D")
           .pauseFor(3000)
