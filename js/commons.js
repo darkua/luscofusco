@@ -49,11 +49,11 @@ function generateThumbnail(i) {
     //   </li>
 
     var li = document.createElement('li');
-    li.setAttribute('class', "collection-item avatar");
+    li.setAttribute('class', "collection-item");
 
     var img = document.createElement('img');
     img.setAttribute('src', dataURL);
-    img.setAttribute('class',"circle")
+    
 
     li.appendChild(img)
     //append img in container div
