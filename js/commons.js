@@ -5,8 +5,11 @@ class Human extends EventTarget {
   happy() {
     this.dispatchEvent(new Event('happy'));
   }
-  angry() {
-    this.dispatchEvent(new Event('angry'));
+  varyhappy() {
+    this.dispatchEvent(new Event('veryhappy'));
+  }
+  itsok(){
+    this.dispatchEvent(new Event('itsok'));
   }
 }
 const you = new Human();
@@ -79,10 +82,17 @@ async function onPlay() {
         for (let i = 0; i < result.length; i++) {
           const face = result[i];
           if (face.expressions.happy > 0.99){
-            you.happy()
-          }
-          if (face.expressions.angry > 0.99){
-            you.angry()
+            //first time happy
+            if (happy == 0){
+              you.happy()
+            }
+            //second time very happy
+            if (happy == 1){
+              you.veryhappy()
+            }
+            if (happy > 1){
+              you.itsok()
+            }
           }
         }
       }
@@ -150,25 +160,30 @@ async function run() {
       .typeString('happy :D ')
       .callFunction(() => {
         hummanize=true
+        
         you.addEventListener('happy', (e) => {
-          console.log("happy fired")
           takePicture()
-          if(happy > 1 ){
-            happy++
-            typewriter.typeString("it's o.k. ").start()
-          }
-          if(happy === 1 ){
-            happy++
-            typewriter.typeString("Yes that is very Ok smile. congratulations, You are human. Welcome to lusco fusco. This is your ticket ").start()
-          }
-          if(happy === 0){
-            happy++
-            typewriter.typeString("it's o.k. ")
-            .pauseFor(3000)
-            typewriter.typeString('but you can smile more, try again... ').start()
-            video.play()
-          }
-          
+          happy++
+          typewriter.typeString("its ok... but can you do it again? ")
+          .pauseFor(3000)
+          typewriter.typeString('say cheese :D ').start()
+          video.play()
+        })
+
+        you.addEventListener('veryhappy',(e)=>{
+          you.removeEventListener('happy')
+          happy++
+          typewriter.typeString("its ok, You are human.  A bot would be not be so stupid to do it twice :D")
+          .pauseFor(3000)
+          .typeString("Welcome to lusco fusco, you are welcome to join us, to apocalypse celebration.This is your ticket.")
+          .start()
+
+        })
+        you.addEventListener('itsok',(e)=>{
+          takePicture()
+          happy++
+          ypewriter.typeString("yes, you look very optimistic, its ok...").start()
+
         })
       }).start()
     })
