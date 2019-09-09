@@ -5,7 +5,7 @@ class Human extends EventTarget {
   happy() {
     this.dispatchEvent(new Event('happy'));
   }
-  varyhappy() {
+  veryhappy() {
     this.dispatchEvent(new Event('veryhappy'));
   }
   itsok(){
