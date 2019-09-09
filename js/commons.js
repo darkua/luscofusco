@@ -49,7 +49,7 @@ function generateThumbnail(i) {
     //   </li>
 
     var li = document.createElement('li');
-    img.setAttribute('class', "collection-item avatar");
+    li.setAttribute('class', "collection-item avatar");
 
     var img = document.createElement('img');
     img.setAttribute('src', dataURL);
