@@ -20,16 +20,12 @@
   <div class="center-content page-container">
     <img class="logo" src="/img/luscofusco01.png"/> 
     <div id="video" style="position: relative" class="margin">
-      <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline ></video>
+      <video onloadedmetadata="onPlay(this)" onclick="takePicture" id="inputVideo" autoplay muted playsinline ></video>
       <canvas id="overlay" />
     </div>
     <div id="lines"></div>
-    <ul id="thumbnailContainer" class="collection">
-      
-    </ul>
+    <ul id="thumbnailContainer" class="collection"></ul>
     </div>
-    <i class="material-icons" style="font-size: 42px;color:white" onclick="takePicture()">add</i>
-    <i class="fas fa-squirrel"></i>
   </div>
 </body>
 <script src="/js/commons.js"></script>
