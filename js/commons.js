@@ -40,15 +40,24 @@ function generateThumbnail(i) {
     const thecanvas = $('#overlay').get(0)
     const video = $('#inputVideo').get(0)
     var context = thecanvas.getContext('2d');
-    context.drawImage(video, 0, 0, 220, 150);
+    context.drawImage(video, 0, 0, 160, 160);
     var dataURL = thecanvas.toDataURL();
 
     //create img
+    // <li class="collection-item avatar">
+    //     <img src="images/yuna.jpg" alt="" class="circle">
+    //   </li>
+
+    var li = document.createElement('li');
+    img.setAttribute('class', "collection-item avatar");
+
     var img = document.createElement('img');
     img.setAttribute('src', dataURL);
+    img.setAttribute('class',"circle")
 
+    li.appendChild(img)
     //append img in container div
-    document.getElementById('thumbnailContainer').appendChild(img);
+    document.getElementById('thumbnailContainer').appendChild(li);
 }
 
 function takePicture(){
