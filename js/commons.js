@@ -14,19 +14,6 @@ class Human extends EventTarget {
 }
 const you = new Human();
 
-function renderLine(id, text) { 
-    if (id>1){
-      prev = id-1
-      let elem = document.getElementsByClassName(`line-${prev}`)[0]
-      console.log("elem",elem)
-      elem.parentNode.removeChild(elem);
-    }
-    var x = document.createElement("p");
-    x.setAttribute("class", `line-${id} anim-typewriter`);
-    var t = document.createTextNode(text); 
-    x.appendChild(t); 
-    document.getElementById("lines").appendChild(x); 
-  }
 
 function updateTimeStats(timeInMs) {
     forwardTimes = [timeInMs].concat(forwardTimes).slice(0, 30)
@@ -172,7 +159,7 @@ async function run() {
         
         you.addEventListener('happy', (e) => {
           takePicture()
-          happy++
+          // happy++
           typewriter.typeString("its ok... but can you do it again? ")
           .pauseFor(3000)
           typewriter.typeString('say cheese :D ').start()
@@ -180,7 +167,7 @@ async function run() {
         })
 
         you.addEventListener('veryhappy',(e)=>{
-          happy++
+          // happy++
           typewriter.typeString("its ok, You are human.  A bot would be not be so stupid to do it twice :D")
           .pauseFor(3000)
           .typeString("Welcome to lusco fusco, you are welcome to join us, to apocalypse celebration.This is your ticket.")
@@ -189,7 +176,7 @@ async function run() {
         })
         you.addEventListener('itsok',(e)=>{
           takePicture()
-          happy++
+          // happy++
           typewriter.typeString("yes, you look very optimistic, its ok...").start()
 
         })
