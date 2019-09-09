@@ -181,7 +181,7 @@ async function run() {
         you.addEventListener('itsok',(e)=>{
           takePicture()
           happy++
-          ypewriter.typeString("yes, you look very optimistic, its ok...").start()
+          typewriter.typeString("yes, you look very optimistic, its ok...").start()
 
         })
       }).start()
