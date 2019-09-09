@@ -40,7 +40,7 @@ function generateThumbnail(i) {
     const thecanvas = $('#overlay').get(0)
     const video = $('#inputVideo').get(0)
     var context = thecanvas.getContext('2d');
-    context.drawImage(video, 0, 0, 160, 160);
+    context.drawImage(video, 0, 0, 640, 480);
     var dataURL = thecanvas.toDataURL();
 
     //create img
