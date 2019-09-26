@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>Beyond Reality Face - BRFv4 - HTML5/Javascript - minimal webcam example</title>
+
+  <style>
+    html, body { width: 100%; height: 100%; background-color: #ffffff; margin: 0; padding: 0; overflow: hidden; }
+  </style>
+</head>
+
+<body>
+
+<video  id="_webcam" style="display: none;" playsinline></video>
+<canvas id="_imageData" style="position: absolute;background-color: black;display: block;margin: 0;padding: 0;"></canvas>
+<canvas id="_drawing" onclick="takePicture()" style="position: absolute;background-color:transparent;display: block;margin: 0;padding: 0;"></canvas>
+
+<script src="js/BRFv4DemoMinimalWebcam.js"></script>
+
+<script>
+
+function takePicture(){
+    const video = document.getElementById('_webcam')
+    if(!video.paused){
+      // generateThumbnail()
+      video.pause()
+    } else {
+      video.play()
+    }
+}
+
+  // BRFv4DemoMinimal.js defines: var handleTrackingResults = function(brfv4, faces, imageDataCtx)
+  // Here we overwrite it. The initialization code for BRFv4 should always be similar,
+  // that's why we put it into its own file.
+  console.log(document.getElementById("_webcam"))
+  
+  var smilesToday = 0
+  var tmpS = 0
+
+  setPointUtils = function(){
+    return {
+
+    setPoint: function(v, i, p) {
+      p.x = v[i * 2]; p.y = v[i * 2 + 1];
+    },
+    applyMovementVector: function(p, p0, pmv, f) {
+      p.x = p0.x + pmv.x * f;
+      p.y = p0.y + pmv.y * f;
+    },
+    interpolatePoint: function(p, p0, p1, f) {
+      p.x = p0.x + f * (p1.x - p0.x);
+      p.y = p0.y + f * (p1.y - p0.y);
+    },
+    getAveragePoint: function(p, ar) {
+      p.x = 0.0; p.y = 0.0;
+      for(var i = 0, l = ar.length; i < l; i++) {
+        p.x += ar[i].x;
+        p.y += ar[i].y;
+      }
+      p.x /= l; p.y /= l;
+    },
+    calcMovementVector: function(p, p0, p1, f) {
+      p.x = f * (p1.x - p0.x);
+      p.y = f * (p1.y - p0.y);
+    },
+    calcMovementVectorOrthogonalCW: function(p, p0, p1, f) {
+      lib.BRFv4PointUtils.calcMovementVector(p, p0, p1, f);
+      var x = p.x;
+      var y = p.y;
+      p.x = -y;
+      p.y = x;
+    },
+    calcMovementVectorOrthogonalCCW: function(p, p0, p1, f) {
+      lib.BRFv4PointUtils.calcMovementVector(p, p0, p1, f);
+      var x = p.x;
+      var y = p.y;
+      p.x = y;
+      p.y = -x;
+    },
+    calcIntersectionPoint: function(p, pk0, pk1, pg0, pg1) {
+
+      //y1 = m1 * x1  + t1 ... y2 = m2 * x2 + t1
+      //m1 * x  + t1 = m2 * x + t2
+      //m1 * x - m2 * x = (t2 - t1)
+      //x * (m1 - m2) = (t2 - t1)
+
+      var dx1 = (pk1.x - pk0.x); if(dx1 == 0) dx1 = 0.01;
+      var dy1 = (pk1.y - pk0.y); if(dy1 == 0) dy1 = 0.01;
+
+      var dx2 = (pg1.x - pg0.x); if(dx2 == 0) dx2 = 0.01;
+      var dy2 = (pg1.y - pg0.y); if(dy2 == 0) dy2 = 0.01;
+
+      var m1 = dy1 / dx1;
+      var t1 = pk1.y - m1 * pk1.x;
+
+      var m2 = dy2 / dx2;
+      var t2 = pg1.y - m2 * pg1.x;
+
+      var m1m2 = (m1 - m2); if(m1m2 == 0) m1m2 = 0.01;
+      var t2t1 = (t2 - t1); if(t2t1 == 0) t2t1 = 0.01;
+      var px = t2t1 / m1m2;
+      var py = m1 * px + t1;
+
+      p.x = px;
+      p.y = py;
+    },
+    calcDistance: function(p0, p1) {
+      return Math.sqrt(
+        (p1.x - p0.x) * (p1.x - p0.x) +
+        (p1.y - p0.y) * (p1.y - p0.y));
+    },
+    calcAngle: function(p0, p1) {
+      return Math.atan2((p1.y - p0.y), (p1.x - p0.x));
+    },
+    toDegree: function(x) {
+      return x * 180.0 / Math.PI;
+    },
+    toRadian: function(x) {
+      return x * Math.PI / 180.0;
+    }
+    };
+  }
+
+  
+  function addScript(url) {
+
+    var script = document.createElement("script");
+
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("async", true);
+    script.setAttribute("src", url);
+    document.getElementsByTagName("head")[0].appendChild(script);
+  }
+
+  var onInitBRFv4 = function(brfv4, brfManager, resolution) {
+    addScript("js/libs/createjs/easeljs.min.js")
+    addScript("js/utils/BRFv4Stats.js")
+    addScript("js/utils/BRFv4DrawingUtils_CreateJS.js")
+    brfv4.BRFv4PointUtils = setPointUtils()
+    
+    
+  };
+
+  // var timeout
+  // setup = function(){
+  //  console.log("fodase")
+  //   if (typeof brfv4Example.drawing.setup == 'function'){
+  //     console.log("drawing loaded")
+  //     var imageData = document.getElementById("_imageData");
+  //     var canvas = document.getElementById("_drawing");
+  //     canvas.width = imageData.width
+  //     canvas.height = imageData.height
+  //     brfv4Example.drawing.setup(canvas)
+  //     clearInterval(timeout)
+  //   }
+  // }
+
+
+  handleTrackingResults = function(
+    brfv4,          // namespace
+    faces,          // tracked faces
+    imageDataCtx    // canvas context to draw into
+  ) {
+    
+    if(brfv4Example.drawing.setup && !brfv4Example.drawing.stage) {
+      var imageData = document.getElementById("_imageData");
+      var canvas = document.getElementById("_drawing");
+      canvas.width = imageData.width
+      canvas.height = imageData.height
+      brfv4Example.drawing.setup(canvas);
+	  }
+    //delete previous
+    if(typeof brfv4Example.drawing.clear == 'function'){
+      brfv4Example.drawing.clear()  
+    }
+    
+    
+    for(var i = 0; i < faces.length; i++) {
+      var face = faces[i];
+      if (typeof brfv4Example.drawing.draw != 'undefined'){
+        smile(brfv4,face);
+      }
+      
+      
+      // if(face.state === brfv4.BRFState.FACE_TRACKING_START ||
+      //   face.state === brfv4.BRFState.FACE_TRACKING) {
+
+      //   imageDataCtx.strokeStyle = "#ff0000";
+
+      //   for(var k = 0; k < face.vertices.length; k += 2) {
+      //     imageDataCtx.beginPath();
+      //     imageDataCtx.arc(face.vertices[k], face.vertices[k + 1], 2, 0, 2 * Math.PI);
+      //     imageDataCtx.stroke();
+      //   }
+      // }
+    }
+  };
+
+  smile = function(brfv4,face){
+    
+    var draw = brfv4Example.drawing;
+
+    if(		face.state === brfv4.BRFState.FACE_TRACKING_START ||
+					face.state === brfv4.BRFState.FACE_TRACKING) {
+        // Smile Detection
+        const p0				= new brfv4.Point();
+	      var p1				= new brfv4.Point();
+	      var setPoint		= brfv4.BRFv4PointUtils.setPoint;
+	      var calcDistance	= brfv4.BRFv4PointUtils.calcDistance;
+
+				setPoint(face.vertices, 48, p0); // mouth corner left
+				setPoint(face.vertices, 54, p1); // mouth corner right
+
+				var mouthWidth = calcDistance(p0, p1);
+
+				setPoint(face.vertices, 39, p1); // left eye inner corner
+				setPoint(face.vertices, 42, p0); // right eye outer corner
+
+				var eyeDist = calcDistance(p0, p1);
+				var smileFactor = mouthWidth / eyeDist;
+
+				smileFactor -= 1.40; // 1.40 - neutral, 1.70 smiling
+
+				if(smileFactor > 0.25) smileFactor = 0.25;
+				if(smileFactor < 0.00) smileFactor = 0.00;
+
+				smileFactor *= 4.0;
+
+				if(smileFactor < 0.0) { smileFactor = 0.0; }
+				if(smileFactor > 1.0) { smileFactor = 1.0; }
+
+				// Let the color show you how much you are smiling.
+
+				var color =
+					(((0xff * (1.0 - smileFactor) & 0xff) << 16)) +
+					(((0xff * smileFactor) & 0xff) << 8);
+
+				// Face Tracking results: 68 facial feature points.
+        
+        draw.drawTriangles(	face.candideVertices, face.candideTriangles, false, 1.0, color, 0.4);
+        // draw.drawVertices(	face.candideVertices, 2.0, false, color, 0.4);
+        // drawIndex(face.candideVertices)
+        
+        draw.fillTriangles(	face.candideVertices, orelhas, false, "0x000000", 0.9);
+        draw.fillTriangles(	face.candideVertices, testa, false, "0xF28525", 0.9);
+        draw.fillTriangles(	face.candideVertices, testa2, false, "0xF39E52", 0.9);
+        
+        //mask
+        if (smileFactor-tmpS > 0.1 && smileFactor > 0.9){
+          smilesToday++
+          console.log("smile time(s):",smilesToday++/30)
+          var rand_color = Math.random() * 0xff
+          draw.fillTriangles(	face.candideVertices, maskTriangles, false, rand_color, 0.5);
+          
+          tmpS = smileFactor
+        } else {
+          tmpS=0
+        }
+        
+				// And for a reference also draw the 68 landmarks (blue).
+				// draw.drawVertices(	face.vertices, 2.0, false, color  , 0.4);
+        // console.log("ok:",(smileFactor * 100).toFixed(0) + "%")
+    }
+  }
+
+  var maskTriangles = [
+    2,50,3,
+    2,17,3
+  ]
+
+  var orelhas = [
+    1,12,13,
+    45,34,46
+  ]
+
+  var testa = [
+  1,2,13,
+  34,2,46
+  ]
+  
+  var testa2 = [
+  1,2,34
+  ]
+
+  drawIndex =  function(vertices) {
+		
+		var canvas = document.getElementById("_drawing");
+    var ctx = canvas.getContext("2d")
+		
+
+		var i = 0;
+    var l = vertices.length;
+
+		for(; i < l;) {
+      n = i/2
+			var x = vertices[i++];
+			var y = vertices[i++];
+      
+      ctx.fillText(n,x,y)
+
+
+		}
+	};
+
+  onResize = function () {
+
+    // fill whole browser
+
+    var imageData = document.getElementById("_imageData");
+    var canvas = document.getElementById("_drawing");
+
+    var ww = window.innerWidth;
+    var wh = window.innerHeight;
+
+    var s = wh / imageData.height;
+
+    if(imageData.width * s < ww) {
+      s = ww / imageData.width;
+    }
+
+    var iw = imageData.width * s;
+    var ih = imageData.height * s;
+    var ix = (ww - iw) * 0.5;
+    var iy = (wh - ih) * 0.5;
+
+    imageData.style.transformOrigin = "0% 0%";
+    imageData.style.transform = "matrix("+s+", 0, 0, "+s+", "+ix+", "+iy+")";
+    
+    canvas.style.transformOrigin = "0% 0%";
+    canvas.style.transform = "matrix("+s+", 0, 0, "+s+", "+ix+", "+iy+")";
+    
+  };
+
+
+
+
+</script>
+
+</body>
+
+</html>
