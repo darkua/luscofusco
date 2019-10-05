@@ -126,20 +126,17 @@ function takePicture(){
   function addScript(url) {
 
     var script = document.createElement("script");
-
     script.setAttribute("type", "text/javascript");
-    script.setAttribute("async", true);
+    script.setAttribute("async", false);
     script.setAttribute("src", url);
     document.getElementsByTagName("head")[0].appendChild(script);
   }
 
   var onInitBRFv4 = function(brfv4, brfManager, resolution) {
     addScript("js/libs/createjs/easeljs.min.js")
-    addScript("js/utils/BRFv4Stats.js")
     addScript("js/utils/BRFv4DrawingUtils_CreateJS.js")
+    addScript("js/utils/BRFv4Stats.js")
     brfv4.BRFv4PointUtils = setPointUtils()
-    
-    
   };
 
   // var timeout
